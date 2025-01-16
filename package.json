@@ -1,0 +1,32 @@
+{
+  "name": "nodejs_restapi",
+  "version": "1.0.0",
+  "description": "node js rest api",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "lint": "eslint src/ -c .ts --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lesantana09/nodejs_restapi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lesantana09/nodejs_restapi/issues"
+  },
+  "homepage": "https://github.com/lesantana09/nodejs_restapi#readme",
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "globals": "^15.14.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "dependencies": {
+    "fastify": "^5.2.1",
+    "tsx": "^4.19.2"
+  }
+}
