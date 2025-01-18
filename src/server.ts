@@ -1,13 +1,17 @@
-import fastify from 'fastify'
+import { fastify } from 'fastify'
+import { env } from './env'
+import cookie from '@fastify/cookie'
+import { transactionsRoutes } from './routes/transactions'
 
 const app = fastify()
 
-app.get('/hello', () => {
-  return { hello: 'node' }
-})
+app.register(cookie)
+app.register(transactionsRoutes, { prefix: 'transactions' })
 
-app.listen({
-  port: 3333
-}).then(() => {
-  console.log('Server running on port 3333')
-})
+app
+  .listen({
+    port: env.PORT,
+  })
+  .then(() => {
+    console.log('Server running on port 3333')
+  })
