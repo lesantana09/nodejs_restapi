@@ -94,7 +94,7 @@ describe('Test Transactions Routes', () => {
     )
   })  
 
-  it('should user be able to get transactions summary', async () => {
+  it('should user be able to get transactions summary and result is correct', async () => {
 
     const createTransactionResponse = await request(app.server)
       .post('/transactions')
