@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "node js rest api",
   "main": "server.ts",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "knex": "node --import tsx ./node_modules/.bin/knex",
@@ -21,7 +24,16 @@
     "url": "https://github.com/lesantana09/nodejs_restapi/issues"
   },
   "homepage": "https://github.com/lesantana09/nodejs_restapi#readme",
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.1",
+    "knex": "^3.1.0",
+    "tsx": "^4.19.2",
+    "zod": "^3.24.1"
+  },  
   "devDependencies": {
+    "sqlite3": "^5.1.7",
     "@eslint/js": "^9.18.0",
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/node": "^22.10.7",
@@ -37,14 +49,5 @@
     "typescript": "^5.3.2",
     "typescript-eslint": "^8.20.0",
     "vitest": "^3.0.0"
-  },
-  "dependencies": {
-    "@fastify/cookie": "^11.0.2",
-    "dotenv": "^16.4.7",
-    "fastify": "^5.2.1",
-    "knex": "^3.1.0",
-    "sqlite3": "^5.1.7",
-    "tsx": "^4.19.2",
-    "zod": "^3.24.1"
   }
 }
