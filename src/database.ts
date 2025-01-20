@@ -8,7 +8,7 @@ if (!process.env.DATABASE_URL) {
 export const config: Knex.Config = {
   client: env.DATABASE_CLIENT,
   connection:
-    env.DATABASE_CLIENT === 'sqllite3'
+    env.DATABASE_CLIENT === 'sqlite3'
       ? {
           filename: env.DATABASE_URL,
         }
