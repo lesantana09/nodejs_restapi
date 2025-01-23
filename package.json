@@ -26,8 +26,12 @@
   "homepage": "https://github.com/lesantana09/nodejs_restapi#readme",
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
+    "@fastify/cors": "^10.0.2",
+    "@fastify/swagger": "^9.4.2",
+    "@fastify/swagger-ui": "^5.2.1",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.1",
+    "fastify-type-provider-zod": "^4.0.2",
     "knex": "^3.1.0",
     "pg": "^8.13.1",
     "tsx": "^4.19.2",
