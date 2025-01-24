@@ -2,20 +2,16 @@ import z from 'zod'
 import { FastifyTypedInstance } from '../@types/types'
 import { env } from '../env'
 
-
-
 export async function AuthRoutes(app: FastifyTypedInstance) {
-
-  const authService = app.authService;
-  const userService = app.userService;
-
+  const authService = app.authService
+  const userService = app.userService
 
   app.addHook('onReady', async () => {
     await userService.save({
-      client_id: env.LOGIN_CLIENT_ID,
-      client_secret: env.LOGIN_CLIENT_SECRET
-    });
-  });
+      clientId: env.LOGIN_CLIENTID,
+      clientSecret: env.LOGIN_CLIENTSECRET,
+    })
+  })
 
   app.post(
     '/login',
@@ -24,12 +20,12 @@ export async function AuthRoutes(app: FastifyTypedInstance) {
         description: 'Login to the system',
         tags: ['auth'],
         body: z.object({
-          client_id: z.string(),
-          client_secret: z.string(),
+          clientId: z.string().default('1234_client_id'),
+          clientSecret: z.string().default('1234_client_id'),
         }),
         response: {
           201: z.object({
-            access_token: z.string(),
+            accessToken: z.string(),
           }),
           401: z.object({
             message: z.string(),
@@ -38,12 +34,11 @@ export async function AuthRoutes(app: FastifyTypedInstance) {
       },
     },
     async (request, reply) => {
-      const { client_id, client_secret } = request.body
+      const { clientId, clientSecret } = request.body
 
       try {
-        const access_token = authService.login(client_id, client_secret)
-        reply.status(201).send({ access_token })
-        
+        const accessToken = authService.login(clientId, clientSecret)
+        reply.status(201).send({ accessToken })
       } catch (error) {
         let message = { message: 'Internal Server Error' }
         if (error instanceof Error) {

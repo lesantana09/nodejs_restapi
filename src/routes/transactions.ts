@@ -5,8 +5,7 @@ import { checkSessionIdExists } from '../middlewares/check_session_id_exists'
 import { FastifyTypedInstance } from '../@types/types'
 
 export async function transactionsRoutes(app: FastifyTypedInstance) {
-
-  const authService = app.authService;
+  const authService = app.authService
 
   app.addHook('preHandler', async (request, reply) => {
     if (!request.method) {
@@ -15,12 +14,13 @@ export async function transactionsRoutes(app: FastifyTypedInstance) {
   })
 
   app.addHook('preHandler', async (request, reply) => {
-    const token = request.headers.authorization?.replace(/^Bearer /, "");
+    const token = request.headers.authorization?.replace(/^Bearer /, '')
     if (!token) {
-      reply.status(401).send({message: 'Unauthorized'})
+      reply.status(401).send({ message: 'Unauthorized' })
     }
     authService.verifyToken(token)
-  });
+  })
+
   app.get(
     '/',
     {

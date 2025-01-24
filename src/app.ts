@@ -16,17 +16,22 @@ import AuthService from './service/auth'
 import UserService from './service/user'
 import InMemoryDatabase from './database_memory'
 
-const userDatabase = new InMemoryDatabase<{ client_id: string; client_secret: string }>();
-const userService = new UserService(userDatabase);
-const authService = new AuthService(userService);
+const userDatabase = new InMemoryDatabase<{
+  clientId: string
+  clientSecret: string
+}>()
+const userService = new UserService(userDatabase)
+const authService = new AuthService(userService)
 
-export const app = fastify({ logger: false }).withTypeProvider<ZodTypeProvider>()
+export const app = fastify({
+  logger: false,
+}).withTypeProvider<ZodTypeProvider>()
 
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
-app.decorate('authService', authService);
-app.decorate('userService', userService);
+app.decorate('authService', authService)
+app.decorate('userService', userService)
 
 app.register(fastifyCors, { origin: '*' })
 app.register(fastifySwagger, {

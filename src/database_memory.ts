@@ -1,26 +1,26 @@
-type RecordType = Record<string, any>;
+type RecordType = Record<string, unknown>
 
 class InMemoryDatabase<T extends RecordType> {
-  private data: Map<string, T>;
+  private data: Map<string, T>
 
   constructor() {
-    this.data = new Map<string, T>();
+    this.data = new Map<string, T>()
   }
 
   create(id: string, record: T) {
     if (this.data.has(id)) {
-      throw new Error(`Record with ID "${id}" already exists.`);
+      throw new Error(`Record with ID "${id}" already exists.`)
     }
-    this.data.set(id, record);
+    this.data.set(id, record)
   }
 
-  read(id: string){
-    return this.data.get(id);
+  read(id: string) {
+    return this.data.get(id)
   }
 
-  list(){
-    return Array.from(this.data.values());
+  list() {
+    return Array.from(this.data.values())
   }
 }
 
-export default InMemoryDatabase;
+export default InMemoryDatabase
