@@ -1,4 +1,3 @@
-import { FastifyInstance } from 'fastify'
 import { knex } from '../database'
 import { z } from 'zod'
 import { randomUUID } from 'node:crypto'
@@ -6,12 +5,22 @@ import { checkSessionIdExists } from '../middlewares/check_session_id_exists'
 import { FastifyTypedInstance } from '../@types/types'
 
 export async function transactionsRoutes(app: FastifyTypedInstance) {
+
+  const authService = app.authService;
+
   app.addHook('preHandler', async (request, reply) => {
     if (!request.method) {
       checkSessionIdExists(request, reply)
     }
   })
 
+  app.addHook('preHandler', async (request, reply) => {
+    const token = request.headers.authorization?.replace(/^Bearer /, "");
+    if (!token) {
+      reply.status(401).send({message: 'Unauthorized'})
+    }
+    authService.verifyToken(token)
+  });
   app.get(
     '/',
     {

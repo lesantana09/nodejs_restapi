@@ -1,8 +1,22 @@
 import z from 'zod'
 import { FastifyTypedInstance } from '../@types/types'
-import AuthService from '../service/auth_service'
+import { env } from '../env'
+
+
 
 export async function AuthRoutes(app: FastifyTypedInstance) {
+
+  const authService = app.authService;
+  const userService = app.userService;
+
+
+  app.addHook('onReady', async () => {
+    await userService.save({
+      client_id: env.LOGIN_CLIENT_ID,
+      client_secret: env.LOGIN_CLIENT_SECRET
+    });
+  });
+
   app.post(
     '/login',
     {
@@ -27,8 +41,9 @@ export async function AuthRoutes(app: FastifyTypedInstance) {
       const { client_id, client_secret } = request.body
 
       try {
-        const access_token = new AuthService().login(client_id, client_secret)
+        const access_token = authService.login(client_id, client_secret)
         reply.status(201).send({ access_token })
+        
       } catch (error) {
         let message = { message: 'Internal Server Error' }
         if (error instanceof Error) {
