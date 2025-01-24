@@ -1,6 +1,7 @@
 import { fastify } from 'fastify'
 import cookie from '@fastify/cookie'
 import { transactionsRoutes } from './routes/transactions'
+import { AuthRoutes } from './routes/auth'
 import { fastifyCors } from '@fastify/cors'
 import { fastifySwagger } from '@fastify/swagger'
 import { fastifySwaggerUi } from '@fastify/swagger-ui'
@@ -29,18 +30,18 @@ app.register(fastifySwagger, {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
-        }
-      }
+        },
+      },
     },
-    security: [{ bearerAuth: [] }],   
+    security: [{ bearerAuth: [] }],
   },
-  transform: jsonSchemaTransform
+  transform: jsonSchemaTransform,
 })
 
 app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
-
 })
 
 app.register(cookie)
 app.register(transactionsRoutes, { prefix: 'transactions' })
+app.register(AuthRoutes, { prefix: 'auth' })
